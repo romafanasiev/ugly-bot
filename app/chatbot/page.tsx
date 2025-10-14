@@ -1,6 +1,6 @@
 'use client';
 
-import { SpamErrors } from '@/src/features';
+import { Contract, SpamErrors } from '@/src/features';
 import { useChat } from '@ai-sdk/react';
 import { useState } from 'react';
 
@@ -38,6 +38,7 @@ export default function Chatbot() {
       </form>
 
       <SpamErrors />
+      <Contract />
     </div>
   );
 }
