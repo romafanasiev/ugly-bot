@@ -1,8 +1,13 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --red: #ff0000;
+
+  --color-error: var(--red);
+
+  --color-notification-background-error: var(--color-error);
 }
 
 @theme inline {
