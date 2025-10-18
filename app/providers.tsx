@@ -1,13 +1,15 @@
 'use client';
 
-import { NotificationProvider } from '@/src/shared';
+import { NotificationProvider, StylesCacheProvider, ThemeProvider } from '@/src/shared';
 
 const Providers = ({ children }: { children: Readonly<React.ReactNode> }) => {
   return (
-    <>
-      {children}
-      <NotificationProvider />
-    </>
+    <StylesCacheProvider>
+      <ThemeProvider>
+        {children}
+        <NotificationProvider />
+      </ThemeProvider>
+    </StylesCacheProvider>
   );
 };
 

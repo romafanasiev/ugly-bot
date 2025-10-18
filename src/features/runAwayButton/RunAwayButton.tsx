@@ -1,9 +1,10 @@
 'use client';
 
+import { Button } from '@mui/material';
 import { useState } from 'react';
 
 const RunawayButton = () => {
-  const [position, setPosition] = useState({ top: '50%', left: '50%' });
+  const [position, setPosition] = useState({ top: '80%', left: '10%' });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const button = e.currentTarget;
@@ -21,22 +22,19 @@ const RunawayButton = () => {
   };
 
   return (
-    <button
-      onMouseEnter={handleMouseMove} 
-      style={{
+    <Button
+      onMouseEnter={handleMouseMove}
+      sx={{
         position: 'absolute',
         top: position.top,
         left: position.left,
         transition: 'all 0.3s ease-out',
-        padding: '10px 20px',
-        backgroundColor: 'lightblue',
-        border: 'none',
-        borderRadius: '5px',
         cursor: 'default',
       }}
+      tabIndex={-1}
     >
-      Catch me if you can!
-    </button>
+      Decline
+    </Button>
   );
 };
 
