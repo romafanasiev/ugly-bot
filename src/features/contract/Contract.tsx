@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import RunAwayButton from '../runAwayButton/RunAwayButton';
 import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/src/shared/constants/ROUTES';
+import { useUserStore } from '@/src/shared/store/hooks/useUserStore';
 
 const generateName = () => faker.person.fullName();
 
@@ -14,6 +15,7 @@ const Contract = () => {
   const router = useRouter();
   const [name, setName] = useState('');
   const [isNameSelected, setIsNameSelected] = useState(false);
+  const { setName: setUserName } = useUserStore((state) => state);
 
   useEffect(() => {
     if (name.length > 0) return;
@@ -26,6 +28,7 @@ const Contract = () => {
   };
 
   const selectName = () => {
+    setUserName(name);
     setIsNameSelected(true);
   };
 
