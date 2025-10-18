@@ -38,7 +38,6 @@ export default function Chatbot() {
       </form>
 
       <SpamErrors />
-      <Contract />
     </div>
   );
 }
