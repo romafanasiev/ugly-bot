@@ -2,20 +2,25 @@
 
 import { faker } from '@faker-js/faker';
 import { Button, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import RunAwayButton from '../runAwayButton/RunAwayButton';
 import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/src/shared/constants/ROUTES';
 import { useUserStore } from '@/src/shared/store/hooks/useUserStore';
+import { APP_CONFIG } from '@/src/shared/config';
 
 const generateName = () => faker.person.fullName();
 
 const Contract = () => {
   const router = useRouter();
+
+  const { setName: setUserName } = useUserStore((state) => state);
+
   const [name, setName] = useState('');
   const [isNameSelected, setIsNameSelected] = useState(false);
-  const { setName: setUserName } = useUserStore((state) => state);
+
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     if (name.length > 0) return;
@@ -32,8 +37,16 @@ const Contract = () => {
     setIsNameSelected(true);
   };
 
-  const onAccept = () => {
-    router.push(ROUTES.QUIZ);
+  const onAccept = async () => {
+    if (audioRef.current) {
+      audioRef.current.volume = 0.5;
+      audioRef.current.currentTime = 0;
+      audioRef.current.play();
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, APP_CONFIG.LAUGH_AUDIO_DURATION - 1000));
+
+    setIsNameSelected(false);
   };
 
   return (
@@ -68,6 +81,7 @@ const Contract = () => {
           </motion.div>
         )}
       </AnimatePresence>
+      <audio src="/audio/laugh.mp3" ref={audioRef} onEnded={() => router.push(ROUTES.CHATBOT)} />
     </div>
   );
 };

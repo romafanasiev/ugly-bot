@@ -61,6 +61,8 @@
 }
 
 body {
+  height: 100dvh;
+  width: 100dvw;
   font-family: Amarante, sans-serif;
   color: var(--color-typography);
   background-color: var(--color-background);

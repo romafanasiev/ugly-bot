@@ -1,0 +1,4 @@
+export const APP_CONFIG = {
+  DELAY_BETWEEN_PRESS: 2000,
+  LAUGH_AUDIO_DURATION: 4000,
+} as const;
