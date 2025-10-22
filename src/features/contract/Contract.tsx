@@ -9,8 +9,14 @@ import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/src/shared/constants/ROUTES';
 import { useUserStore } from '@/src/shared/store/hooks/useUserStore';
 import { APP_CONFIG } from '@/src/shared/config';
+import { GravestoneWrapper, PrimaryButton, SecondaryButton } from '@/src/shared';
 
 const generateName = () => faker.person.fullName();
+
+const STEPS = {
+  INTRODUCTION: 'introduction',
+  NAME: 'name',
+} as const;
 
 const Contract = () => {
   const router = useRouter();
@@ -19,7 +25,9 @@ const Contract = () => {
 
   const [name, setName] = useState('');
   const [isNameSelected, setIsNameSelected] = useState(false);
+  const [currentStep, setCurrentStep] = useState<(typeof STEPS)[keyof typeof STEPS]>(STEPS.INTRODUCTION);
 
+  const isIntroductionStep = currentStep === STEPS.INTRODUCTION;
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
@@ -51,14 +59,32 @@ const Contract = () => {
 
   return (
     <div className="flex h-screen flex-col items-center justify-center gap-2">
-      <Typography component="h1" variant="h1">
-        Hi, thats your name?
-      </Typography>
-      <Typography>{name.length > 0 ? name : <span className="opacity-0">Generating name...</span>}</Typography>
-      <div className="flex justify-between gap-2">
-        <Button onClick={changeName}>Change Name</Button>
-        <Button onClick={selectName}>Select Name</Button>
-      </div>
+      <GravestoneWrapper>
+        {isIntroductionStep && (
+          <div className="flex flex-col items-center justify-center gap-2">
+            <Typography className="text-center">Welcome to Hell Chat, lost soul.</Typography>
+            <PrimaryButton onClick={() => setCurrentStep(STEPS.NAME)}>Hello</PrimaryButton>
+          </div>
+        )}
+        {!isIntroductionStep && (
+          <>
+            <Typography className="text-center">
+              Let’s introduce ourselves.
+              <br />
+              I’m Devil. And your name must be:
+            </Typography>
+            <Typography className="bg-gray-light text-primary rounded-full p-2 text-center">
+              {name.length > 0 ? name : <span className="opacity-0">Generating name...</span>}
+            </Typography>
+            <div className="flex justify-center gap-2">
+              <SecondaryButton onClick={changeName}>No</SecondaryButton>
+              <PrimaryButton onClick={selectName} disabled>
+                Yes
+              </PrimaryButton>
+            </div>
+          </>
+        )}
+      </GravestoneWrapper>
       <AnimatePresence>
         {isNameSelected && (
           <motion.div
@@ -69,7 +95,7 @@ const Contract = () => {
             className="absolute z-20 h-dvh w-dvw bg-red-500"
           >
             <div className="relative flex h-full w-full flex-col items-center justify-center gap-2">
-              <Typography className="font-horrorfind" variant="h3">
+              <Typography variant="h3" className="font-horrorfind rounded-full">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
               </Typography>
 

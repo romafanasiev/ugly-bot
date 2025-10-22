@@ -39,15 +39,19 @@
 }
 
 :root {
-  --red: #a10b01;
+  --red: #860d05;
+  --red-alt: #ab0101;
   --yellow: #f1c40f;
-  --green: #228636;
+  --green: #07dd71;
   --green-light: #7fff00;
   --blue: #1b1a55;
   --blue-dark: #070f2b;
   --blue-light: #424769;
   --purple: #3c0753;
   --white: #f8f9f9;
+  --gray: #4e505c;
+  --gray-dark: #4e505c;
+  --gray-light: #b2b6ce;
 
   --font-horrorfind: Horrorfind;
 
@@ -58,6 +62,13 @@
 @theme inline {
   --font-horrorfind: var(--font-horrorfind);
   --font-amarante: var(--font-amarante);
+
+  --color-bg-intro: var(--gray-dark);
+  --color-gray-light: var(--gray-light);
+  --color-primary: var(--blue);
+  --color-hover: var(--green-light);
+  --shadow-intro: -4px -4px 6px 0px rgba(44, 45, 51, 0.8) inset;
+  --shadow-hover-button: 0px 0px 16px 0px rgba(178, 182, 206, 0.8);
 }
 
 body {

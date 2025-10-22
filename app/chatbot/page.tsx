@@ -2,10 +2,10 @@
 
 import { SpamErrors } from '@/src/features';
 import { useChat } from '@ai-sdk/react';
-import { Button } from '@mui/material';
 import { useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import { APP_CONFIG } from '@/src/shared/config';
+import { PrimaryButton, SecondaryButton } from '@/src/shared';
 
 export default function Chatbot() {
   const [message, setMessage] = useState('');
@@ -57,7 +57,7 @@ export default function Chatbot() {
   };
 
   return (
-    <div className="stretch mx-auto flex h-full w-full max-w-md grow flex-col py-24">
+    <div className="stretch mx-auto flex h-full w-full grow flex-col py-24">
       {messages.map((message) => (
         <div key={message.id} className="whitespace-pre-wrap">
           {message.role === 'user' ? 'User: ' : 'AI: '}
@@ -73,51 +73,61 @@ export default function Chatbot() {
       {message.length > 0 && <div className="whitespace-pre-wrap">{message}</div>}
 
       <div className="mx-auto mt-auto">
-        <Button type="button" data-values="1abcабвг" onClick={handleButtonClick}>
-          1abcабвг
-        </Button>
-        <Button type="button" data-values="2defґдеє" onClick={handleButtonClick}>
-          2defґдеє
-        </Button>
-        <Button type="button" data-values="3ghiжзиі" onClick={handleButtonClick}>
-          3ghiжзиі
-        </Button>
-        <br />
-        <Button type="button" data-values="4jklїйкл" onClick={handleButtonClick}>
-          4jklїйкл
-        </Button>
-        <Button type="button" data-values="5mnoмноп" onClick={handleButtonClick}>
-          5mnoмноп
-        </Button>
-        <Button type="button" data-values="6pqrрсту" onClick={handleButtonClick}>
-          6pqrрсту
-        </Button>
-        <br />
-        <Button type="button" data-values="7stuфхц" onClick={handleButtonClick}>
-          7stuфхц
-        </Button>
-        <Button type="button" data-values="8vwxчшщ" onClick={handleButtonClick}>
-          8vwxчшщ
-        </Button>
-        <Button type="button" data-values="9yzьюя" onClick={handleButtonClick}>
-          9yzьюя
-        </Button>
-        <br />
-        <Button type="button" data-values="*+()/%" onClick={handleButtonClick}>
-          *+()/%
-        </Button>
-        <Button type="button" data-values="0 " onClick={handleButtonClick}>
-          <div className="flex items-center gap-1">
-            <span>0</span> <span className="relative top-[-12px] right-[-20px] scale-200">&#826;</span>
-          </div>
-        </Button>
-        <Button type="button" data-values=".,-!?#" onClick={handleButtonClick}>
-          .,-!?#
-        </Button>
-        <br />
-        <Button type="button" className="m-auto" onClick={handleSendMessage} disabled={message.length === 0}>
+        <div className="flex gap-1">
+          <SecondaryButton type="button" data-values="1abcабвг" onClick={handleButtonClick}>
+            1abcабвг
+          </SecondaryButton>
+          <SecondaryButton type="button" data-values="2defґдеє" onClick={handleButtonClick}>
+            2defґдеє
+          </SecondaryButton>
+          <SecondaryButton type="button" data-values="3ghiжзиі" onClick={handleButtonClick}>
+            3ghiжзиі
+          </SecondaryButton>
+        </div>
+        <div className="flex gap-1">
+          <SecondaryButton type="button" data-values="4jklїйкл" onClick={handleButtonClick}>
+            4jklїйкл
+          </SecondaryButton>
+          <SecondaryButton type="button" data-values="5mnoмноп" onClick={handleButtonClick}>
+            5mnoмноп
+          </SecondaryButton>
+          <SecondaryButton type="button" data-values="6pqrрсту" onClick={handleButtonClick}>
+            6pqrрсту
+          </SecondaryButton>
+        </div>
+        <div className="flex gap-1">
+          <SecondaryButton type="button" data-values="7stuфхц" onClick={handleButtonClick}>
+            7stuфхц
+          </SecondaryButton>
+          <SecondaryButton type="button" data-values="8vwxчшщ" onClick={handleButtonClick}>
+            8vwxчшщ
+          </SecondaryButton>
+          <SecondaryButton type="button" data-values="9yzьюя" onClick={handleButtonClick}>
+            9yzьюя
+          </SecondaryButton>
+        </div>
+        <div className="flex gap-1">
+          <SecondaryButton type="button" data-values="*+()/%" onClick={handleButtonClick}>
+            *+()/%
+          </SecondaryButton>
+          <SecondaryButton type="button" data-values="0 " onClick={handleButtonClick}>
+            <div className="flex items-center gap-1">
+              <span>0</span> <span className="relative top-[-12px] right-[-20px] scale-200">&#826;</span>
+            </div>
+          </SecondaryButton>
+          <SecondaryButton type="button" data-values=".,-!?#" onClick={handleButtonClick}>
+            .,-!?#
+          </SecondaryButton>
+        </div>
+
+        <PrimaryButton
+          type="button"
+          wrapperClassName="m-auto"
+          onClick={handleSendMessage}
+          disabled={message.length === 0}
+        >
           Send
-        </Button>
+        </PrimaryButton>
       </div>
       {/* <audio src="/audio/background.mp3" autoPlay loop /> */}
     </div>
