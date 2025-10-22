@@ -24,6 +24,9 @@ const SecondaryButton = ({ sx, children, disabled, className, wrapperClassName, 
       >
         {children}
       </Button>
+      <div
+        className={`absolute top-[19%] left-[17%] h-[66%] w-[62%] rounded ${!disabled && 'group-hover:shadow-hover-button'}`}
+      />
       <img
         src="/secondary_button.png"
         alt="Primary Button"

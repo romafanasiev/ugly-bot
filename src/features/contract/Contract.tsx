@@ -16,7 +16,11 @@ const generateName = () => faker.person.fullName();
 const STEPS = {
   INTRODUCTION: 'introduction',
   NAME: 'name',
+  SELECTED_NAME: 'selected_name',
+  CONTRACT: 'contract',
 } as const;
+
+const blockStyle = 'flex grow flex-col items-center justify-center gap-2';
 
 const Contract = () => {
   const router = useRouter();
@@ -24,25 +28,32 @@ const Contract = () => {
   const { setName: setUserName } = useUserStore((state) => state);
 
   const [name, setName] = useState('');
-  const [isNameSelected, setIsNameSelected] = useState(false);
+  const [isNameRegenerate, setIsNameRegenerate] = useState(false);
   const [currentStep, setCurrentStep] = useState<(typeof STEPS)[keyof typeof STEPS]>(STEPS.INTRODUCTION);
 
   const isIntroductionStep = currentStep === STEPS.INTRODUCTION;
+  const isNameStep = currentStep === STEPS.NAME;
+  const isContractStep = currentStep === STEPS.CONTRACT;
+  const isSelectedNameStep = currentStep === STEPS.SELECTED_NAME;
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     if (name.length > 0) return;
 
-    changeName();
+    changeName(true);
   }, []);
 
-  const changeName = () => {
+  const changeName = (skip = false) => {
     setName(generateName());
+
+    if (isNameRegenerate || skip) return;
+
+    setIsNameRegenerate(true);
   };
 
   const selectName = () => {
     setUserName(name);
-    setIsNameSelected(true);
+    setCurrentStep(STEPS.SELECTED_NAME);
   };
 
   const onAccept = async () => {
@@ -54,39 +65,54 @@ const Contract = () => {
 
     await new Promise((resolve) => setTimeout(resolve, APP_CONFIG.LAUGH_AUDIO_DURATION - 1000));
 
-    setIsNameSelected(false);
+    setCurrentStep(STEPS.INTRODUCTION);
   };
 
   return (
     <div className="flex h-screen flex-col items-center justify-center gap-2">
-      <GravestoneWrapper>
+      <GravestoneWrapper className="w-full max-w-md shrink-0">
         {isIntroductionStep && (
-          <div className="flex flex-col items-center justify-center gap-2">
-            <Typography className="text-center">Welcome to Hell Chat, lost soul.</Typography>
+          <div className={blockStyle}>
+            <Typography className="text-center" variant="h2">
+              Welcome to Hell Chat, lost soul.
+            </Typography>
             <PrimaryButton onClick={() => setCurrentStep(STEPS.NAME)}>Hello</PrimaryButton>
           </div>
         )}
-        {!isIntroductionStep && (
-          <>
-            <Typography className="text-center">
-              Let’s introduce ourselves.
-              <br />
-              I’m Devil. And your name must be:
+        {isNameStep && (
+          <div className={blockStyle}>
+            <Typography className="text-center" variant="h2">
+              {!isNameRegenerate ? (
+                <>
+                  Let’s introduce ourselves.
+                  <br />
+                  I’m Devil. And your name must be:
+                </>
+              ) : (
+                'You dare to tell me I made a mistake? Hah, lowly human! Okay, I’ll give you another try. So, your name is:'
+              )}
             </Typography>
-            <Typography className="bg-gray-light text-primary rounded-full p-2 text-center">
+
+            <Typography className="bg-gray-light text-primary w-full rounded-full p-2 text-center">
               {name.length > 0 ? name : <span className="opacity-0">Generating name...</span>}
             </Typography>
             <div className="flex justify-center gap-2">
-              <SecondaryButton onClick={changeName}>No</SecondaryButton>
-              <PrimaryButton onClick={selectName} disabled>
-                Yes
-              </PrimaryButton>
+              <SecondaryButton onClick={() => changeName(false)}>No</SecondaryButton>
+              <PrimaryButton onClick={selectName}>Yes</PrimaryButton>
             </div>
-          </>
+          </div>
+        )}
+        {(isSelectedNameStep || isContractStep) && (
+          <div className={blockStyle}>
+            <Typography className="text-center" variant="h2">
+              Fantastic, I know I’m always right! Now let us proceed to the contract.
+            </Typography>
+            <PrimaryButton onClick={() => setCurrentStep(STEPS.CONTRACT)}>What??</PrimaryButton>
+          </div>
         )}
       </GravestoneWrapper>
       <AnimatePresence>
-        {isNameSelected && (
+        {isContractStep && (
           <motion.div
             initial={{ opacity: 0, y: '-200dvh' }}
             animate={{ opacity: 1, y: 0 }}
