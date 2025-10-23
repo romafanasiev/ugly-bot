@@ -57,6 +57,8 @@
 
   --color-typography: var(--white);
   --color-background: var(--blue-dark);
+
+  --default-letter-spacing: 0.1em;
 }
 
 @theme inline {
@@ -77,4 +79,14 @@ body {
   font-family: Amarante, sans-serif;
   color: var(--color-typography);
   background-color: var(--color-background);
+}
+
+@layer utilities {
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+}
+.scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

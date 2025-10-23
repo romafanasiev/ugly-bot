@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import { useState } from 'react';
 
 const RunawayButton = () => {
-  const [position, setPosition] = useState({ top: '80%', left: '10%' });
+  const [position, setPosition] = useState({ bottom: '3%', left: '10dvw' });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const button = e.currentTarget;
@@ -18,19 +18,21 @@ const RunawayButton = () => {
     newTop = Math.max(0, Math.min(newTop, window.innerHeight - buttonRect.height));
     newLeft = Math.max(0, Math.min(newLeft, window.innerWidth - buttonRect.width));
 
-    setPosition({ top: `${newTop}px`, left: `${newLeft}px` });
+    setPosition({ bottom: `${newTop}px`, left: `${newLeft}px` });
   };
 
   return (
     <Button
       onMouseEnter={handleMouseMove}
       sx={{
-        position: 'absolute',
-        top: position.top,
+        position: 'fixed',
+        bottom: position.bottom,
         left: position.left,
         transition: 'all 0.3s ease-out',
         cursor: 'default',
       }}
+      className="text-xs text-black hover:opacity-0"
+      size="small"
       tabIndex={-1}
     >
       Decline
