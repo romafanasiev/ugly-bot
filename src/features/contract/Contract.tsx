@@ -24,11 +24,6 @@ const blockStyle = 'flex grow flex-col items-center justify-center gap-2';
 
 const contractContent = [
   {
-    title: 'ARTICULUS I: De Anima Vendita',
-    content:
-      'Ego, {name}, hodie et in perpetuum, animam meam vendere volo Diabolo Magnifico pro nihilo. Intellego quod anima mea valoris minimi est, sed Diabolus, benevolentia sua infinita, eam accipere dignatur. Gratias tibi ago, O Princeps Tenebrarum!',
-  },
-  {
     title: 'ARTICULUS II: De Pizza Perpetua',
     content:
       'Promitto ego omnem pizzam cum ananase comedere in aeternum. Etiam si hoc crimen contra naturam est, Diabolus ridet et clamat "BENE FACTUM!" Pineapple pizza delenda est, sed ego eam amare debeo. Mamma mia, quid feci?',
@@ -202,6 +197,16 @@ const Contract = () => {
               </Typography>
 
               <div className="scrollbar-hidden max-h-[80dvh] max-w-4xl space-y-4 overflow-y-auto text-left">
+                <Typography className="text-black">
+                  <Typography variant="h2" component="strong" className="font-horrorfind">
+                    ARTICULUS I: De Anima Vendita
+                  </Typography>
+                  <br />
+                  Ego, {name}, hodie et in perpetuum, animam meam vendere volo Diabolo Magnifico pro nihilo. Intellego
+                  quod anima mea valoris minimi est, sed Diabolus, benevolentia sua infinita, eam accipere dignatur.
+                  Gratias tibi ago, O Princeps Tenebrarum!'
+                </Typography>
+
                 {contractContent.map((item) => (
                   <Typography key={item.title} className="text-black">
                     <Typography variant="h2" component="strong" className="font-horrorfind">
