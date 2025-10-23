@@ -2,9 +2,9 @@ import { createTheme } from '@mui/material';
 
 export const theme = createTheme({
   typography: {
-    fontFamily: 'var(--font-open-sans), sans-serif',
+    fontFamily: 'var(--font-amarante), sans-serif',
     h1: {
-      fontFamily: 'var(--font-economica), sans-serif',
+      fontFamily: 'var(--font-amarante), sans-serif',
       fontWeight: 700,
       fontSize: '2rem',
       lineHeight: '1.26',
@@ -13,7 +13,7 @@ export const theme = createTheme({
       textTransform: 'uppercase',
     },
     h2: {
-      fontFamily: 'var(--font-economica), sans-serif',
+      fontFamily: 'var(--font-amarante), sans-serif',
       fontWeight: 700,
       fontSize: '1.375rem',
       lineHeight: '1.26',

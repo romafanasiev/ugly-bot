@@ -15,6 +15,7 @@ const PrimaryButton = ({ sx, children, disabled, className, wrapperClassName, ..
           ...sx,
           position: 'relative',
           right: '2%',
+          top: '4%',
           width: '68%',
           color: 'var(--color-primary)',
           zIndex: 10,
@@ -24,6 +25,9 @@ const PrimaryButton = ({ sx, children, disabled, className, wrapperClassName, ..
       >
         {children}
       </Button>
+      <div
+        className={`absolute top-[20%] left-[16%] h-[66%] w-[68%] rounded ${!disabled && 'group-hover:shadow-hover-button'}`}
+      />
       <img
         src="/primary_button.png"
         alt="Primary Button"
