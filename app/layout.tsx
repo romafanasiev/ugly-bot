@@ -65,7 +65,7 @@ export default function RootLayout({
             />
           </div>
 
-          <div className="absolute inset-0 z-30 margin-10px">
+          <div className="absolute inset-0 z-30">
             <Providers>{children}</Providers>
           </div>
         </div>
