@@ -39,12 +39,12 @@ export default function RootLayout({
             </h1>
           </header>
 
-          <footer className="w-full flex justify-center">
+          <footer className="w-full flex justify-center overflow-hidden max-h-[70vh]">
             <img
-              src="/background-scene-croped.png"
+              src="/underworld_footer.png"
               alt="footer background"
               className="w-full h-auto object-contain 
-                         max-[445px]:content-[url('/background-scene-mobile.png')]"
+                         max-[445px]:content-[url('/underworld_footer_m.png')]"
             />
           </footer>
 
@@ -53,7 +53,7 @@ export default function RootLayout({
             max-[768px]:top-[96px] max-[768px]:left-[34px]
           ">
             <img
-              src="/moon.png"
+              src="/moon_bg.png"
               alt="moon"
               className="w-[257px] rotate-[33deg]
                         max-[768px]:w-[185px]
