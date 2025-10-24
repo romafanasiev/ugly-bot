@@ -68,7 +68,10 @@
   --color-bg-intro: var(--gray-dark);
   --color-gray-light: var(--gray-light);
   --color-primary: var(--blue);
+  --color-secondary: var(--purple);
   --color-hover: var(--green-light);
+  --color-user-message: var(--blue-light);
+  --color-blood: var(--red-alt);
   --shadow-intro: -4px -4px 6px 0px rgba(44, 45, 51, 0.8) inset;
   --shadow-hover-button: 0px 0px 16px 0px rgba(178, 182, 206, 0.8);
 }

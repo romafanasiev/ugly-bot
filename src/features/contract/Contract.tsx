@@ -143,7 +143,7 @@ const Contract = () => {
 
   return (
     <div className="flex h-screen max-h-dvh flex-col items-center justify-center gap-2">
-      <GravestoneWrapper className="w-full max-w-md shrink-0">
+      <GravestoneWrapper className="shrink-0">
         {isIntroductionStep && (
           <div className={blockStyle}>
             <Typography className="text-center">Welcome to Hell Chat, lost soul.</Typography>
