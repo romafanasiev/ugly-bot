@@ -66,6 +66,7 @@
   --font-amarante: var(--font-amarante);
 
   --color-bg-intro: var(--gray-dark);
+  --color-error: var(--red);
   --color-gray-light: var(--gray-light);
   --color-primary: var(--blue);
   --color-secondary: var(--purple);

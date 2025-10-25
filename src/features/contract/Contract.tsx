@@ -98,7 +98,7 @@ const contractContent = [
 const Contract = () => {
   const router = useRouter();
 
-  const { setName: setUserName } = useUserStore((state) => state);
+  const { setName: setUserName, name: userName } = useUserStore((state) => state);
 
   const [name, setName] = useState('');
   const [isNameRegenerate, setIsNameRegenerate] = useState(false);
@@ -202,9 +202,9 @@ const Contract = () => {
                     ARTICULUS I: De Anima Vendita
                   </Typography>
                   <br />
-                  Ego, {name}, hodie et in perpetuum, animam meam vendere volo Diabolo Magnifico pro nihilo. Intellego
-                  quod anima mea valoris minimi est, sed Diabolus, benevolentia sua infinita, eam accipere dignatur.
-                  Gratias tibi ago, O Princeps Tenebrarum!'
+                  Ego, {userName}, hodie et in perpetuum, animam meam vendere volo Diabolo Magnifico pro nihilo.
+                  Intellego quod anima mea valoris minimi est, sed Diabolus, benevolentia sua infinita, eam accipere
+                  dignatur. Gratias tibi ago, O Princeps Tenebrarum!'
                 </Typography>
 
                 {contractContent.map((item) => (

@@ -1,8 +1,8 @@
 'use client';
 
-import { SpamErrors } from '@/src/features';
+import { SoulBar, SpamErrors } from '@/src/features';
 import { useChat } from '@ai-sdk/react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import { APP_CONFIG } from '@/src/shared/config';
 import { PrimaryButton, SecondaryButton } from '@/src/shared';
@@ -10,6 +10,8 @@ import FireBackground from './FireBackground';
 import { Typography } from '@mui/material';
 import { useUserStore } from '@/src/shared/store/hooks/useUserStore';
 import { faker } from '@faker-js/faker';
+import { useRouter } from 'next/navigation';
+import { ROUTES } from '@/src/shared/constants/ROUTES';
 
 const buttonStyles = 'flex gap-2';
 const buttonContainerStyles = 'flex gap-1';
@@ -18,32 +20,48 @@ const generateRandomNumber = () => {
   return faker.number.int({ min: 2, max: 5 });
 };
 const initialRandomNumber = generateRandomNumber();
+
 export default function Chatbot() {
+  const router = useRouter();
   const [message, setMessage] = useState('');
   const [pressLeft, setPressLeft] = useState(initialRandomNumber);
 
   const { messages, sendMessage } = useChat();
 
-  const { soulPoints } = useUserStore((state) => state);
+  const { soulPoints, name } = useUserStore((state) => state);
   const randomNumberRef = useRef<number>(initialRandomNumber);
   const lastPressRef = useRef<string>(null);
 
+  useEffect(() => {
+    if (name.length > 0) return;
+
+    router.replace(ROUTES.HOME);
+  }, []);
+
+  useEffect(() => {
+    if (soulPoints > 0) return;
+
+    // TODO: add logic for game
+  }, [soulPoints]);
+
   const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const values = e.currentTarget.dataset.values;
+    const newPressDate = dayjs().toISOString();
 
     if (!values || values.length === 0) return;
 
     if (message.length === 0) {
       setMessage(values[0]);
+      lastPressRef.current = newPressDate;
       return;
     }
 
     const lastSymbol = message[message.length - 1];
     const lastSymbolIndex = values.split('').findIndex((symbol) => symbol === lastSymbol);
-    const newPressDate = dayjs().toISOString();
 
     if (lastSymbolIndex === -1) {
       setMessage(message + values[0]);
+      lastPressRef.current = newPressDate;
       return;
     }
 
@@ -89,7 +107,10 @@ export default function Chatbot() {
         <img src="/blood.png" alt="blood drop" className="h-auto w-full" />
       </div>
       <div className="relative top-0 right-0 bottom-0 left-0 z-200 h-full w-full">
-        <div className="h-20 border-b">Header</div>
+        <div className="flex h-20 items-center p-2 md:p-4">
+          <SoulBar soulPoints={soulPoints} />
+          <SpamErrors />
+        </div>
         <div className="stretch mx-auto flex h-full w-full grow flex-col">
           <ul className="scrollbar-hidden mx-auto flex w-full max-w-md grow flex-col items-start gap-4 overflow-scroll p-2 lg:p-4">
             {messages.map((message) => (
