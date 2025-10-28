@@ -2,16 +2,17 @@
 
 import { SoulBar, SpamErrors } from '@/src/features';
 import { useChat } from '@ai-sdk/react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import { APP_CONFIG } from '@/src/shared/config';
 import { PrimaryButton, SecondaryButton } from '@/src/shared';
 import FireBackground from './FireBackground';
-import { Typography } from '@mui/material';
+import { Modal, Typography } from '@mui/material';
 import { useUserStore } from '@/src/shared/store/hooks/useUserStore';
 import { faker } from '@faker-js/faker';
 import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/src/shared/constants/ROUTES';
+import { GhostCatcher } from '@/src/features/halloween';
 
 const buttonStyles = 'flex gap-2';
 const buttonContainerStyles = 'flex gap-1';
@@ -24,25 +25,20 @@ const initialRandomNumber = generateRandomNumber();
 export default function Chatbot() {
   const router = useRouter();
   const [message, setMessage] = useState('');
-  const [pressLeft, setPressLeft] = useState(initialRandomNumber);
+  const [isGameModalOpen, setIsGameModalOpen] = useState(false);
+  const [pressLeft, setPressLeft] = useState(0);
 
   const { messages, sendMessage } = useChat();
 
-  const { soulPoints, name } = useUserStore((state) => state);
+  const { soulPoints, name, decreaseSoulPoints, increaseSoulPoints } = useUserStore((state) => state);
   const randomNumberRef = useRef<number>(initialRandomNumber);
   const lastPressRef = useRef<string>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (name.length > 0) return;
 
     router.replace(ROUTES.HOME);
   }, []);
-
-  useEffect(() => {
-    if (soulPoints > 0) return;
-
-    // TODO: add logic for game
-  }, [soulPoints]);
 
   const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const values = e.currentTarget.dataset.values;
@@ -92,12 +88,25 @@ export default function Chatbot() {
     // sendMessage({ text: message });
     setMessage('');
     lastPressRef.current = null;
+
+    const newSoulPoints = soulPoints - 10;
+
+    if (newSoulPoints <= 0) {
+      setIsGameModalOpen(true);
+    }
+
+    decreaseSoulPoints(10);
   };
 
   const decreasePressLeft = () => {
     if (pressLeft === 0) return;
     console.log('decreasePressLeft', pressLeft);
     setPressLeft((prev) => prev - 1);
+  };
+
+  const onGameOver = (score: number) => {
+    setIsGameModalOpen(false);
+    increaseSoulPoints(score);
   };
 
   return (
@@ -290,7 +299,12 @@ export default function Chatbot() {
           </div>
         </div>
       </div>
-      {/* <audio src="/audio/background.mp3" autoPlay loop /> */}
+      <Modal open={isGameModalOpen}>
+        <div className="relative h-full w-full">
+          <GhostCatcher onContinue={onGameOver} />
+        </div>
+      </Modal>
+      <audio src="/audio/background.mp3" autoPlay loop />
     </div>
   );
 }
