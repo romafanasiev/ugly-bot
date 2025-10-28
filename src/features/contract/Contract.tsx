@@ -228,7 +228,13 @@ const Contract = () => {
                 <RunAwayButton />
                 <Button
                   onClick={onAccept}
-                  sx={{ position: 'absolute', top: '70%', right: '10%', scale: 2, padding: 0 }}
+                  sx={{
+                    position: 'absolute',
+                    bottom: '70%',
+                    right: '10%',
+                    scale: 2,
+                    padding: 0,
+                  }}
                   size="large"
                   color="error"
                 >
