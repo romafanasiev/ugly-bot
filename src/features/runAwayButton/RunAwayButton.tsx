@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import { useState } from 'react';
 
 const RunawayButton = () => {
-  const [position, setPosition] = useState({ bottom: '3%', left: '10dvw' });
+  const [position, setPosition] = useState({ bottom: '5%', left: '10dvw' });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const button = e.currentTarget;
@@ -31,11 +31,12 @@ const RunawayButton = () => {
         transition: 'all 0.3s ease-out',
         cursor: 'default',
       }}
-      className="text-xs text-black hover:opacity-0"
+      className="text-black hover:opacity-0"
       size="small"
       tabIndex={-1}
     >
       Decline
+      <img src="/ghost_decline.gif" alt="Decline Button" className="absolute z-[-1] h-auto w-full opacity-75" />
     </Button>
   );
 };
