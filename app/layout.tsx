@@ -34,7 +34,7 @@ export default function RootLayout({
         <div className="relative flex min-h-dvh min-w-[340px] max-w-[1440px] flex-col justify-between mx-auto">
           
           <header className="flex-0 p-10 text-center text-2xl font-bold text-white z-10">
-            <h1 className={`${horrorfind.className} text-[30px] font-normal leading-[130%] tracking-[2px] text-[#F8F9F9]`}>
+            <h1 className={`${horrorfind.className} text-2xl font-normal leading-[130%] tracking-[2px] text-[#F8F9F9]`}>
               Hell CHAT
             </h1>
           </header>

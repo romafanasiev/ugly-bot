@@ -1,5 +1,7 @@
 'use client';
 
+import { PrimaryButton } from '@/src/shared';
+import { Typography } from '@mui/material';
 import { useState, useEffect, useCallback } from 'react';
 
 interface Ghost {
@@ -13,7 +15,7 @@ interface Ghost {
 
 const GHOST_EMOJIS = ['👻', '🎃', '💀', '🕷️', '🦇', '😈', '🧟', '🧛'];
 
-export default function GhostCatcher() {
+export default function GhostCatcher({ onContinue }: { onContinue: (score: number) => void }) {
   const [ghosts, setGhosts] = useState<Ghost[]>([]);
   const [score, setScore] = useState(0);
   const [combo, setCombo] = useState(0);
@@ -107,7 +109,7 @@ export default function GhostCatcher() {
       const newCombo = combo + 1;
       setCombo(newCombo);
       setLastComboTime(Date.now());
-      const points = 10 + (newCombo > 1 ? (newCombo - 1) * 5 : 0);
+      const points = 10 + (newCombo > 1 ? (newCombo - 1) * 10 : 0);
       setScore((prev) => prev + points);
     },
     [combo],
@@ -133,25 +135,37 @@ export default function GhostCatcher() {
 
       {/* Header */}
       <div className="relative z-10 p-6">
-        <h1 className="mb-4 text-center text-5xl font-bold text-orange-400 drop-shadow-[0_0_10px_rgba(251,146,60,0.5)]">
+        <Typography
+          variant="h1"
+          className="font-horrorfind mb-4 text-center text-5xl text-orange-400 drop-shadow-[0_0_10px_rgba(251,146,60,0.5)]"
+        >
           👻 Ghost Catcher 👻
-        </h1>
+        </Typography>
 
-        <div className="flex justify-center gap-8 text-xl text-white">
-          <div className="rounded-lg border border-orange-500/30 bg-black/50 px-6 py-3 backdrop-blur-sm">
-            Score: <span className="font-bold text-orange-400">{score}</span>
-          </div>
+        <div className="flex justify-center gap-8 text-lg text-white">
+          <Typography className="rounded-lg border border-orange-500/30 bg-black/50 px-6 py-3 text-lg backdrop-blur-sm">
+            Score:{' '}
+            <Typography className="text-lg font-bold text-orange-400" component="span">
+              {score}
+            </Typography>
+          </Typography>
           {combo > 1 && (
             <div className="animate-pulse rounded-lg border border-orange-300 bg-orange-500/80 px-6 py-3 backdrop-blur-sm">
               🔥 Combo x{combo}!
             </div>
           )}
-          <div className="rounded-lg border border-orange-500/30 bg-black/50 px-6 py-3 backdrop-blur-sm">
-            Time: <span className="font-bold text-orange-400">{timeLeft}s</span>
-          </div>
-          <div className="rounded-lg border border-orange-500/30 bg-black/50 px-6 py-3 backdrop-blur-sm">
-            High Score: <span className="font-bold text-yellow-400">{highScore}</span>
-          </div>
+          <Typography className="rounded-lg border border-orange-500/30 bg-black/50 px-6 py-3 backdrop-blur-sm">
+            Time:{' '}
+            <Typography className="text-lg font-bold text-orange-400" component="span">
+              {timeLeft}s
+            </Typography>
+          </Typography>
+          <Typography className="rounded-lg border border-orange-500/30 bg-black/50 px-6 py-3 backdrop-blur-sm">
+            High Score:{' '}
+            <Typography className="text-lg font-bold text-orange-400" component="span">
+              {highScore}
+            </Typography>
+          </Typography>
         </div>
       </div>
 
@@ -160,7 +174,7 @@ export default function GhostCatcher() {
         {ghosts.map((ghost) => (
           <button
             key={ghost.id}
-            onClick={() => catchGhost(ghost.id)}
+            onClick={ghost.emoji === '👻' ? () => catchGhost(ghost.id) : undefined}
             className="absolute cursor-pointer transition-transform hover:scale-110 active:scale-95"
             style={{
               left: `${ghost.x}%`,
@@ -177,25 +191,30 @@ export default function GhostCatcher() {
         {/* Start/Game Over Screen */}
         {!gameActive && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="rounded-2xl border-4 border-orange-500/50 bg-black/80 p-12 text-center backdrop-blur-md">
-              <h2 className="mb-4 text-4xl font-bold text-orange-400">
+            <div className="rounded-2xl border-4 border-orange-500/50 bg-black/50 p-12 text-center backdrop-blur-md">
+              <Typography variant="h2" className="font-horrorfind mb-4 text-4xl font-bold text-orange-400">
                 {score > 0 ? '🎃 Game Over! 🎃' : '🕸️ Ready to Hunt? 🕸️'}
-              </h2>
+              </Typography>
               {score > 0 && (
-                <p className="mb-4 text-2xl text-white">
+                <Typography className="font-horrorfind mb-4 text-2xl text-white">
                   Final Score: <span className="font-bold text-orange-400">{score}</span>
-                </p>
+                </Typography>
               )}
-              {score > 0 && score === highScore && score > 0 && (
-                <p className="mb-4 animate-pulse text-xl text-yellow-400">🏆 New High Score! 🏆</p>
-              )}
-              <button
-                onClick={startGame}
-                className="rounded-full bg-orange-500 px-8 py-4 text-xl font-bold text-white shadow-lg transition-all hover:scale-105 hover:bg-orange-600 hover:shadow-orange-500/50 active:scale-95"
-              >
-                {score > 0 ? 'Play Again' : 'Start Game'}
-              </button>
-              <p className="mt-6 text-sm text-gray-300">Click the ghosts and spooky creatures before they escape!</p>
+              <div className="flex items-center justify-center gap-2">
+                <PrimaryButton onClick={startGame} className="m-auto self-center">
+                  {score > 0 ? 'Play Again' : 'Start Game'}
+                </PrimaryButton>
+                {score > 0 && (
+                  <PrimaryButton
+                    onClick={() => onContinue(score)}
+                    disabled={score === 0}
+                    className="m-auto self-center"
+                  >
+                    Continue
+                  </PrimaryButton>
+                )}
+              </div>
+              <Typography className="mt-6 text-sm text-gray-300">Click the ghosts before they escape!</Typography>
             </div>
           </div>
         )}
@@ -203,7 +222,7 @@ export default function GhostCatcher() {
 
       {/* Instructions */}
       <div className="relative z-10 pb-8 text-center text-gray-300">
-        <p className="text-sm">💡 Catch ghosts quickly to build combos for bonus points!</p>
+        <Typography className="text-sm">💡 Catch ghosts quickly to build combos for bonus points!</Typography>
       </div>
 
       <style jsx>{`
@@ -220,4 +239,3 @@ export default function GhostCatcher() {
     </div>
   );
 }
-

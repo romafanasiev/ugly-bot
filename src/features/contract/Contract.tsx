@@ -98,7 +98,7 @@ const contractContent = [
 const Contract = () => {
   const router = useRouter();
 
-  const { setName: setUserName } = useUserStore((state) => state);
+  const { setName: setUserName, name: userName } = useUserStore((state) => state);
 
   const [name, setName] = useState('');
   const [isNameRegenerate, setIsNameRegenerate] = useState(false);
@@ -143,7 +143,7 @@ const Contract = () => {
 
   return (
     <div className="flex h-screen max-h-dvh flex-col items-center justify-center gap-2">
-      <GravestoneWrapper className="w-full max-w-md shrink-0">
+      <GravestoneWrapper className="shrink-0">
         {isIntroductionStep && (
           <div className={blockStyle}>
             <Typography className="text-center">Welcome to Hell Chat, lost soul.</Typography>
@@ -202,9 +202,9 @@ const Contract = () => {
                     ARTICULUS I: De Anima Vendita
                   </Typography>
                   <br />
-                  Ego, {name}, hodie et in perpetuum, animam meam vendere volo Diabolo Magnifico pro nihilo. Intellego
-                  quod anima mea valoris minimi est, sed Diabolus, benevolentia sua infinita, eam accipere dignatur.
-                  Gratias tibi ago, O Princeps Tenebrarum!'
+                  Ego, {userName}, hodie et in perpetuum, animam meam vendere volo Diabolo Magnifico pro nihilo.
+                  Intellego quod anima mea valoris minimi est, sed Diabolus, benevolentia sua infinita, eam accipere
+                  dignatur. Gratias tibi ago, O Princeps Tenebrarum!'
                 </Typography>
 
                 {contractContent.map((item) => (
@@ -228,7 +228,13 @@ const Contract = () => {
                 <RunAwayButton />
                 <Button
                   onClick={onAccept}
-                  sx={{ position: 'absolute', top: '70%', right: '10%', scale: 2, padding: 0 }}
+                  sx={{
+                    position: 'absolute',
+                    bottom: '70%',
+                    right: '10%',
+                    scale: 2,
+                    padding: 0,
+                  }}
                   size="large"
                   color="error"
                 >
