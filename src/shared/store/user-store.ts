@@ -15,7 +15,7 @@ export type UserStore = UserState & UserActions;
 
 export const defaultInitState: UserState = {
   name: '',
-  soulPoints: 0,
+  soulPoints: 20,
 };
 
 export const initUserStore = (): UserState => {

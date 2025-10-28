@@ -2,17 +2,19 @@
 
 import { SoulBar, SpamErrors } from '@/src/features';
 import { useChat } from '@ai-sdk/react';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import { APP_CONFIG } from '@/src/shared/config';
 import { PrimaryButton, SecondaryButton } from '@/src/shared';
-import FireBackground from './FireBackground';
-import { Modal, Typography } from '@mui/material';
+import { Modal } from '@mui/material';
 import { useUserStore } from '@/src/shared/store/hooks/useUserStore';
 import { faker } from '@faker-js/faker';
 import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/src/shared/constants/ROUTES';
 import { GhostCatcher } from '@/src/features/halloween';
+import { UserMessage } from './UserMessage';
+import { BotMessage } from './BotMessage';
+import { arrayShuffle } from '@/src/shared/utils';
 
 const buttonStyles = 'flex gap-2';
 const buttonContainerStyles = 'flex gap-1';
@@ -33,6 +35,8 @@ export default function Chatbot() {
   const { soulPoints, name, decreaseSoulPoints, increaseSoulPoints } = useUserStore((state) => state);
   const randomNumberRef = useRef<number>(initialRandomNumber);
   const lastPressRef = useRef<string>(null);
+
+  const shuffledMessages = useMemo(() => arrayShuffle(messages), [messages.length]);
 
   useLayoutEffect(() => {
     if (name.length > 0) return;
@@ -85,7 +89,7 @@ export default function Chatbot() {
   };
 
   const handleSendMessage = () => {
-    // sendMessage({ text: message });
+    sendMessage({ text: message });
     setMessage('');
     lastPressRef.current = null;
 
@@ -122,34 +126,31 @@ export default function Chatbot() {
         </div>
         <div className="stretch mx-auto flex h-full w-full grow flex-col">
           <ul className="scrollbar-hidden mx-auto flex w-full max-w-md grow flex-col items-start gap-4 overflow-scroll p-2 lg:p-4">
-            {messages.map((message) => (
-              <li key={message.id} className="whitespace-pre-wrap">
-                {message.role === 'user' ? 'User: ' : 'AI: '}
-                {message.parts.map((part, i) => {
-                  switch (part.type) {
-                    case 'text':
-                      return <div key={`${message.id}-${i}`}>{part.text}</div>;
-                  }
-                })}
-              </li>
+            {shuffledMessages.map((message) => (
+              <>
+                {message.role === 'user' ? (
+                  <UserMessage key={message.id}>
+                    {message.parts.map((part, i) => {
+                      switch (part.type) {
+                        case 'text':
+                          return <div key={`${message.id}-${i}`}>{part.text}</div>;
+                      }
+                    })}
+                  </UserMessage>
+                ) : (
+                  <BotMessage key={message.id}>
+                    {message.parts.map((part, i) => {
+                      switch (part.type) {
+                        case 'text':
+                          return <div key={`${message.id}-${i}`}>{part.text}</div>;
+                      }
+                    })}
+                  </BotMessage>
+                )}
+              </>
             ))}
 
-            {message.length > 0 && (
-              <li className="group bg-secondary relative min-h-[120px] w-full min-w-[13rem] min-w-[50%] shrink-0 overflow-hidden rounded-xl rounded-bl-none p-2 whitespace-pre-wrap">
-                <Typography
-                  component="span"
-                  className="relative z-10 blur-xs transition-all duration-300 hover:blur-none"
-                >
-                  {message}
-                </Typography>{' '}
-                <FireBackground />
-              </li>
-            )}
-            {message.length > 0 && (
-              <li className="bg-user-message w-full min-w-[50%] shrink-0 self-end rounded-xl rounded-br-none p-2 whitespace-pre-wrap">
-                <Typography component="span">{message}</Typography>
-              </li>
-            )}
+            {message.length > 0 && <UserMessage>{message}</UserMessage>}
           </ul>
 
           <div className="relative bottom-[20px] mx-auto h-[350px] w-[300px] scale-50 md:h-[400px] md:w-[480px] md:scale-70">
