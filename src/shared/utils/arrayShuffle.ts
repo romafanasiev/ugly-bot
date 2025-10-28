@@ -1,4 +1,4 @@
-export const arrayShuffle = (array: unknown[]) => {
+export const arrayShuffle = <T>(array: T[]) => {
   const newArray = [...array];
   let currentIndex = array.length;
   let randomIndex;

@@ -136,7 +136,7 @@ const Contract = () => {
       audioRef.current.play();
     }
 
-    await new Promise((resolve) => setTimeout(resolve, APP_CONFIG.LAUGH_AUDIO_DURATION - 1000));
+    await new Promise((resolve) => setTimeout(resolve, APP_CONFIG.LAUGH_AUDIO_DURATION + 2000));
 
     setCurrentStep(STEPS.INTRODUCTION);
   };
