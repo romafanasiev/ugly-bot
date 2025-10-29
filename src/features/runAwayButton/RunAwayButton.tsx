@@ -36,7 +36,12 @@ const RunawayButton = () => {
       tabIndex={-1}
     >
       Decline
-      <img src="/ghost_decline.gif" alt="Decline Button" className="absolute z-[-1] h-auto w-full opacity-75" />
+      <img
+        src="/ghost_decline.gif"
+        fetchPriority="high"
+        alt="Decline Button"
+        className="absolute z-[-1] h-auto w-full opacity-75"
+      />
     </Button>
   );
 };

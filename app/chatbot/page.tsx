@@ -113,6 +113,109 @@ export default function Chatbot() {
     increaseSoulPoints(score);
   };
 
+  const buttons = arrayShuffle([
+    <SecondaryButton type="button" className={buttonStyles} data-values="1abcабвг" onClick={handleButtonClick}>
+      <span className="text-2xl">1</span>
+      <span className="text-xs">
+        abc
+        <br />
+        абвг
+      </span>
+    </SecondaryButton>,
+    <SecondaryButton type="button" className={buttonStyles} data-values="2defґдеє" onClick={handleButtonClick}>
+      <span className="text-2xl">2</span>
+      <span className="text-xs">
+        def
+        <br />
+        ґдеє
+      </span>
+    </SecondaryButton>,
+    <SecondaryButton type="button" className={buttonStyles} data-values="3ghiжзиі" onClick={handleButtonClick}>
+      <span className="text-2xl">3</span>
+      <span className="text-xs">
+        ghi
+        <br />
+        жзиі
+      </span>
+    </SecondaryButton>,
+    <SecondaryButton type="button" className={buttonStyles} data-values="4jklїйкл" onClick={handleButtonClick}>
+      <span className="text-2xl">4</span>
+      <span className="text-xs">
+        jkl
+        <br />
+        їйкл
+      </span>
+    </SecondaryButton>,
+    <SecondaryButton type="button" className={buttonStyles} data-values="5mnoмноп" onClick={handleButtonClick}>
+      <span className="text-2xl">5</span>
+      <span className="text-xs">
+        mno
+        <br />
+        мноп
+      </span>
+    </SecondaryButton>,
+    <SecondaryButton type="button" className={buttonStyles} data-values="6pqrрсту" onClick={handleButtonClick}>
+      <span className="text-2xl">6</span>
+      <span className="text-xs">
+        pqr
+        <br />
+        рсту
+      </span>
+    </SecondaryButton>,
+    <SecondaryButton type="button" className={buttonStyles} data-values="7stuфхц" onClick={handleButtonClick}>
+      <span className="text-2xl">7</span>
+      <span className="text-xs">
+        stu
+        <br />
+        фхц
+      </span>
+    </SecondaryButton>,
+    <SecondaryButton type="button" className={buttonStyles} data-values="8vwxчшщ" onClick={handleButtonClick}>
+      <span className="text-2xl">8</span>
+      <span className="text-xs">
+        vwx
+        <br />
+        чшщ
+      </span>
+    </SecondaryButton>,
+    <SecondaryButton type="button" className={buttonStyles} data-values="9yzьюя" onClick={handleButtonClick}>
+      <span className="text-2xl">9</span>
+      <span className="text-xs">
+        yz
+        <br />
+        ьюя
+      </span>
+    </SecondaryButton>,
+    <SecondaryButton type="button" data-values="*+()/%" onClick={handleButtonClick}>
+      *+()/%
+    </SecondaryButton>,
+    <SecondaryButton type="button" data-values="0 " onClick={handleButtonClick}>
+      <div className="flex items-center gap-1">
+        <span>0</span> <span className="relative top-[-12px] right-[-5px] scale-200">&#826;</span>
+      </div>
+    </SecondaryButton>,
+    <SecondaryButton type="button" data-values=".,-!?#" onClick={handleButtonClick}>
+      .,-!?#
+    </SecondaryButton>,
+    <SecondaryButton type="button" data-values=".,-!?#" onClick={handleRemove}>
+      &#8592;
+    </SecondaryButton>,
+    <div className="relative">
+      <PrimaryButton type="button" onClick={handleSendMessage} disabled={message.length === 0 || pressLeft > 0}>
+        Send
+      </PrimaryButton>
+      {pressLeft > 0 && (
+        <div
+          onClick={decreasePressLeft}
+          role="button"
+          className={`absolute top-[20px] right-0 bottom-0 left-[30px] z-10 h-[40px] w-[100px] cursor-pointer bg-[url('/glass.png')] bg-center object-scale-down ${pressLeft === randomNumberRef.current && 'opacity-0'}`}
+        />
+      )}
+    </div>,
+  ]);
+
+  if (name.length === 0) return null;
+
   return (
     <div className="bg-primary fixed top-0 right-0 bottom-0 left-0 h-dvh w-dvw overflow-hidden">
       <div className={`fixed flex h-[200dvh] w-dvw flex-col`} style={{ top: `-${soulPoints * 2}dvh` }}>
@@ -155,147 +258,29 @@ export default function Chatbot() {
 
           <div className="relative bottom-[20px] mx-auto h-[350px] w-[300px] scale-50 md:h-[400px] md:w-[480px] md:scale-70">
             <div className={buttonContainerStyles}>
-              <SecondaryButton
-                type="button"
-                className={buttonStyles}
-                data-values="1abcабвг"
-                onClick={handleButtonClick}
-              >
-                <span className="text-2xl">1</span>
-                <span className="text-xs">
-                  abc
-                  <br />
-                  абвг
-                </span>
-              </SecondaryButton>
-              <SecondaryButton
-                type="button"
-                className={buttonStyles}
-                data-values="2defґдеє"
-                onClick={handleButtonClick}
-              >
-                <span className="text-2xl">2</span>
-                <span className="text-xs">
-                  def
-                  <br />
-                  ґдеє
-                </span>
-              </SecondaryButton>
-              <SecondaryButton
-                type="button"
-                className={buttonStyles}
-                data-values="3ghiжзиі"
-                onClick={handleButtonClick}
-              >
-                <span className="text-2xl">3</span>
-                <span className="text-xs">
-                  ghi
-                  <br />
-                  жзиі
-                </span>
-              </SecondaryButton>
+              {buttons[0]}
+              {buttons[1]}
+              {buttons[2]}
             </div>
             <div className={buttonContainerStyles}>
-              <SecondaryButton
-                type="button"
-                className={buttonStyles}
-                data-values="4jklїйкл"
-                onClick={handleButtonClick}
-              >
-                <span className="text-2xl">4</span>
-                <span className="text-xs">
-                  jkl
-                  <br />
-                  їйкл
-                </span>
-              </SecondaryButton>
-              <SecondaryButton
-                type="button"
-                className={buttonStyles}
-                data-values="5mnoмноп"
-                onClick={handleButtonClick}
-              >
-                <span className="text-2xl">5</span>
-                <span className="text-xs">
-                  mno
-                  <br />
-                  мноп
-                </span>
-              </SecondaryButton>
-              <SecondaryButton
-                type="button"
-                className={buttonStyles}
-                data-values="6pqrрсту"
-                onClick={handleButtonClick}
-              >
-                <span className="text-2xl">6</span>
-                <span className="text-xs">
-                  pqr
-                  <br />
-                  рсту
-                </span>
-              </SecondaryButton>
+              {buttons[3]}
+              {buttons[4]}
+              {buttons[5]}
             </div>
             <div className={buttonContainerStyles}>
-              <SecondaryButton type="button" className={buttonStyles} data-values="7stuфхц" onClick={handleButtonClick}>
-                <span className="text-2xl">7</span>
-                <span className="text-xs">
-                  stu
-                  <br />
-                  фхц
-                </span>
-              </SecondaryButton>
-              <SecondaryButton type="button" className={buttonStyles} data-values="8vwxчшщ" onClick={handleButtonClick}>
-                <span className="text-2xl">8</span>
-                <span className="text-xs">
-                  vwx
-                  <br />
-                  чшщ
-                </span>
-              </SecondaryButton>
-              <SecondaryButton type="button" className={buttonStyles} data-values="9yzьюя" onClick={handleButtonClick}>
-                <span className="text-2xl">9</span>
-                <span className="text-xs">
-                  yz
-                  <br />
-                  ьюя
-                </span>
-              </SecondaryButton>
+              {buttons[6]}
+              {buttons[7]}
+              {buttons[8]}
             </div>
             <div className={buttonContainerStyles}>
-              <SecondaryButton type="button" data-values="*+()/%" onClick={handleButtonClick}>
-                *+()/%
-              </SecondaryButton>
-              <SecondaryButton type="button" data-values="0 " onClick={handleButtonClick}>
-                <div className="flex items-center gap-1">
-                  <span>0</span> <span className="relative top-[-12px] right-[-5px] scale-200">&#826;</span>
-                </div>
-              </SecondaryButton>
-              <SecondaryButton type="button" data-values=".,-!?#" onClick={handleButtonClick}>
-                .,-!?#
-              </SecondaryButton>
+              {buttons[9]}
+              {buttons[10]}
+              {buttons[11]}
             </div>
 
             <div className="flex justify-between">
-              <SecondaryButton type="button" data-values=".,-!?#" onClick={handleRemove}>
-                &#8592;
-              </SecondaryButton>
-              <div className="relative">
-                <PrimaryButton
-                  type="button"
-                  onClick={handleSendMessage}
-                  disabled={message.length === 0 || pressLeft > 0}
-                >
-                  Send
-                </PrimaryButton>
-                {pressLeft > 0 && (
-                  <div
-                    onClick={decreasePressLeft}
-                    role="button"
-                    className={`absolute top-[20px] right-0 bottom-0 left-[30px] z-10 h-[40px] w-[100px] cursor-pointer bg-[url('/glass.png')] bg-center object-scale-down ${pressLeft === randomNumberRef.current && 'opacity-0'}`}
-                  />
-                )}
-              </div>
+              {buttons[12]}
+              {buttons[13]}
             </div>
           </div>
         </div>

@@ -42,6 +42,7 @@ export default function RootLayout({
           <footer className="w-full flex justify-center overflow-hidden max-h-[70vh]">
             <img
               src="/underworld_footer.png"
+              fetchPriority='high'
               alt="footer background"
               className="w-full h-auto object-contain 
                          max-[445px]:content-[url('/underworld_footer_m.png')]"
@@ -55,6 +56,7 @@ export default function RootLayout({
             <img
               src="/moon_bg.png"
               alt="moon"
+              fetchPriority='high'
               className="w-[257px] rotate-[33deg]
                         max-[768px]:w-[185px]
                         max-[640px]:w-[125px]
