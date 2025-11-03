@@ -138,7 +138,8 @@ const Contract = () => {
 
     await new Promise((resolve) => setTimeout(resolve, APP_CONFIG.LAUGH_AUDIO_DURATION + 2000));
 
-    setCurrentStep(STEPS.INTRODUCTION);
+    //setCurrentStep(STEPS.INTRODUCTION);
+    router.push(ROUTES.QUIZ);
   };
 
   return (
@@ -247,7 +248,7 @@ const Contract = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      <audio src="/audio/laugh.mp3" ref={audioRef} onEnded={() => router.push(ROUTES.CHATBOT)} />
+      <audio src="/audio/laugh.mp3" ref={audioRef} onEnded={() => router.push(ROUTES.QUIZ)} />
     </div>
   );
 };
