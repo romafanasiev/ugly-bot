@@ -243,7 +243,12 @@ const Contract = () => {
                 </Button>
               </div>
 
-              <img src="/contract_bg.jpg" alt="Contract" className="absolute right-0 bottom-0 z-[-1] h-full w-full" />
+              <img
+                src="/contract_bg.jpg"
+                fetchPriority="high"
+                alt="Contract"
+                className="absolute right-0 bottom-0 z-[-1] h-full w-full"
+              />
             </div>
           </motion.div>
         )}

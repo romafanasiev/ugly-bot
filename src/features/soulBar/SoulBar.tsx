@@ -29,6 +29,7 @@ const SoulBar = ({ soulPoints }: SoulBarProps) => {
           />
           <img
             src="/ghost.png"
+            fetchPriority="high"
             alt="ghost"
             style={{ left: `${soulPoints}%` }}
             className={`absolute -top-2 h-12 translate-x-[-50%] animate-[bounce_1.5s_ease-in-out_infinite]`}

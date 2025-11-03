@@ -30,6 +30,7 @@ const PrimaryButton = ({ sx, children, disabled, className, wrapperClassName, ..
       />
       <img
         src="/primary_button.png"
+        fetchPriority="high"
         alt="Primary Button"
         className={`absolute top-0 left-0 h-full w-full transition-all duration-300 ${!disabled && 'group-hover:scale-105'}`}
       />

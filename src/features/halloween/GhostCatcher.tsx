@@ -202,7 +202,7 @@ export default function GhostCatcher({ onContinue }: { onContinue: (score: numbe
               )}
               <div className="flex items-center justify-center gap-2">
                 <PrimaryButton onClick={startGame} className="m-auto self-center">
-                  {score > 0 ? 'Play Again' : 'Start Game'}
+                  {score > 0 ? 'Again!' : 'Start Game'}
                 </PrimaryButton>
                 {score > 0 && (
                   <PrimaryButton
