@@ -138,7 +138,8 @@ const Contract = () => {
 
     await new Promise((resolve) => setTimeout(resolve, APP_CONFIG.LAUGH_AUDIO_DURATION + 2000));
 
-    setCurrentStep(STEPS.INTRODUCTION);
+    //setCurrentStep(STEPS.INTRODUCTION);
+    router.push(ROUTES.QUIZ);
   };
 
   return (
