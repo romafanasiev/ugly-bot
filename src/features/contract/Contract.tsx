@@ -248,7 +248,7 @@ const Contract = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      <audio src="/audio/laugh.mp3" ref={audioRef} onEnded={() => router.push(ROUTES.CHATBOT)} />
+      <audio src="/audio/laugh.mp3" ref={audioRef} onEnded={() => router.push(ROUTES.QUIZ)} />
     </div>
   );
 };

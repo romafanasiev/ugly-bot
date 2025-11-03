@@ -49,31 +49,24 @@ const Quiz = () => {
   }
 
   return (
-    <div className="h-screen flex items-center justify-center">
-      <motion.div
-        initial={{ opacity: 0, y: "-100vh" }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="absolute inset-0 flex items-center justify-center bg-black/70 z-50"
-      >
+    <div className="relative h-screen flex items-center justify-center bg-black/70">
+      {currentQuestion >= userQuestions.length ? (
+        <QuizCompletedPopup soulPoints={soulPoints} />
+      ) : (
         <GravestoneWrapper className="max-w-md w-full p-8 flex flex-col items-center m-4">
-           <QuizHeader
-              soulPoints={soulPoints}
-              currentQuestion={currentQuestion}
-              totalQuestions={TOTAL_QUESTIONS}
-              lastDelta={lastDelta}
-            />
-            {currentQuestion >= userQuestions.length ? (
-            <QuizCompletedPopup soulPoints={soulPoints} />
-            ) : (
-              renderMain(userQuestions[currentQuestion], {
-                onNext: () => setCurrentQuestion(q => q + 1),
-                isLast: currentQuestion === userQuestions.length - 1,
-                setLastDelta,
-              })
-            )}
+          <QuizHeader
+            soulPoints={soulPoints}
+            currentQuestion={currentQuestion}
+            totalQuestions={TOTAL_QUESTIONS}
+            lastDelta={lastDelta}
+          />
+          {renderMain(userQuestions[currentQuestion], {
+            onNext: () => setCurrentQuestion((q) => q + 1),
+            isLast: currentQuestion === userQuestions.length - 1,
+            setLastDelta,
+          })}
         </GravestoneWrapper>
-      </motion.div>
+      )}
     </div>
   );
 };
