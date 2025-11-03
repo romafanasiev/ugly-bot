@@ -90,6 +90,7 @@ export default function Chatbot() {
 
   const handleSendMessage = () => {
     sendMessage({ text: message });
+    setPressLeft(generateRandomNumber());
     setMessage('');
     lastPressRef.current = null;
 
@@ -104,7 +105,6 @@ export default function Chatbot() {
 
   const decreasePressLeft = () => {
     if (pressLeft === 0) return;
-    console.log('decreasePressLeft', pressLeft);
     setPressLeft((prev) => prev - 1);
   };
 
@@ -113,7 +113,7 @@ export default function Chatbot() {
     increaseSoulPoints(score);
   };
 
-  const buttons = arrayShuffle([
+  const buttons = [
     <SecondaryButton type="button" className={buttonStyles} data-values="1abcабвг" onClick={handleButtonClick}>
       <span className="text-2xl">1</span>
       <span className="text-xs">
@@ -212,7 +212,7 @@ export default function Chatbot() {
         />
       )}
     </div>,
-  ]);
+  ];
 
   if (name.length === 0) return null;
 
